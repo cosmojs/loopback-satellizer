@@ -289,7 +289,6 @@ app.post('/auth/github',
   // Step 1. Exchange authorization code for access token.
   function(req, res, next) {
     var accessTokenUrl = 'https://github.com/login/oauth/access_token';
-    var userApiUrl = 'https://api.github.com/user';
     var params = {
       code: req.body.code,
       client_id: req.body.clientId,
@@ -311,6 +310,7 @@ app.post('/auth/github',
   function (req, res, next) {
     var accessToken = req.accessToken;
     var headers = { 'User-Agent': 'Satellizer' };
+    var userApiUrl = 'https://api.github.com/user';
 
     request.get({ url: userApiUrl, qs: accessToken, headers: headers, json: true }, function(err, response, profile) {
       if (err) {
